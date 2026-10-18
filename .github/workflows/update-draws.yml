@@ -2,9 +2,13 @@ name: Auto Update Texas Lotto CSV
 
 on:
   schedule:
-    # Runs Mon, Wed, Sat at 10:30 PM CT (3:30 AM UTC)
+    # Runs Mon, Wed, Sat at 10:30 PM CT & 11:30 PM CT
     - cron: '30 3 * * 0,2,4'
+    - cron: '30 4 * * 0,2,4'
   workflow_dispatch: # Allows manual 1-click trigger anytime on GitHub!
+
+permissions:
+  contents: write
 
 jobs:
   update-csv:
