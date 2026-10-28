@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.codex.lottotexas.app-mergeDebugResources-1:/values-v31/values-v31.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values-v31\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "621"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "651"
+                    }
+                }
+            ]
+        }
+    ]
+}

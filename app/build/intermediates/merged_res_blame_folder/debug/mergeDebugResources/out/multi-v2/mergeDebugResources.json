@@ -1,0 +1,76 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\values-v27_values-v27.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values-v27\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "637"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "11",
+                        "endColumns": "12",
+                        "endOffsets": "666"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "465"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "504"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.codex.lottotexas.app-debug-3:/values-v31_values-v31.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values-v31\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "621"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "651"
+                    }
+                }
+            ]
+        }
+    ]
+}

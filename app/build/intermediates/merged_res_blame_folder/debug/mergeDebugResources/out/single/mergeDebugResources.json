@@ -1,0 +1,118 @@
+[
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\drawable_ic_launcher_foreground_square.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\drawable\\ic_launcher_foreground_square.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/drawable_ic_launcher_foreground_square.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/drawable/ic_launcher_foreground_square.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\drawable_app_logo.jpg.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\drawable\\app_logo.jpg"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\raw_splash_video.mp4.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\raw\\splash_video.mp4"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/drawable_app_logo.jpg.flat",
+        "source": "com.codex.lottotexas.app-main-5:/drawable/app_logo.jpg"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-debug-3:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-main-5:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.codex.lottotexas.app-debug-3:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.codex.lottotexas.app-main-5:/mipmap-hdpi/ic_launcher_round.png"
+    }
+]

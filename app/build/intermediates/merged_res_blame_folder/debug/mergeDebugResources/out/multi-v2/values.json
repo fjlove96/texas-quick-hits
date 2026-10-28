@@ -1,0 +1,52 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-mergeDebugResources-1:\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "465"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "504"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.codex.lottotexas.app-mergeDebugResources-1:/values/values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "560"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "599"
+                    }
+                }
+            ]
+        }
+    ]
+}

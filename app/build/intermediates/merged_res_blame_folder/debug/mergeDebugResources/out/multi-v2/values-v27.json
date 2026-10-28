@@ -1,0 +1,52 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.codex.lottotexas.app-mergeDebugResources-1:/values-v27/values-v27.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values-v27\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "637"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "11",
+                        "endColumns": "12",
+                        "endOffsets": "666"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\fjlov\\.gradle\\daemon\\9.6.0\\com.codex.lottotexas.app-mergeDebugResources-1:\\values-v27\\values-v27.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\fjlov\\Documents\\Codex\\2026-10-10\\wha\\outputs\\LottoTexasAndroidStudioProject\\app\\src\\main\\res\\values-v27\\styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "540"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "10",
+                        "endColumns": "12",
+                        "endOffsets": "570"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+com.codex.lottotexas
+drawable app_logo
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable ic_launcher_foreground_square
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw splash_video
+style AppTheme

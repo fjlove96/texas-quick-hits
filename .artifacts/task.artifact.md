@@ -1,0 +1,5 @@
+- `[x]` Step 1: Add banner ad view at the bottom of `MainActivity.java` matching cyberpunk theme
+- `[x]` Step 2: Implement Pro upgrade state (`is_pro` SharedPreferences) and upgrade dialog flow
+- `[x]` Step 3: Enforce Free tier limit on Saved Favorites (max 3 sets) with Pro upgrade prompt
+- `[x]` Step 4: Implement Rewarded Video Ad simulation dialog for live data syncing on Free tier
+- `[x]` Step 5: Build and verify compilation
