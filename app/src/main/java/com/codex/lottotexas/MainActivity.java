@@ -263,8 +263,11 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         
         LinearLayout.LayoutParams scrollLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f);
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         root.addView(scroll, scrollLp);
+
+        setContentView(root);
+        buildHeader();
 
         if (!isProUser()) {
             LinearLayout bannerView = new LinearLayout(this);
@@ -277,14 +280,9 @@ public class MainActivity extends Activity {
             bannerView.addView(adLabel);
             bannerView.setOnClickListener(v -> showProUpgradeDialog());
 
-            LinearLayout.LayoutParams bannerLp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
-            bannerLp.setMargins(dp(16), 0, dp(16), dp(8));
-            root.addView(bannerView, bannerLp);
+            content.addView(bannerView, margin(0, 10));
         }
 
-        setContentView(root);
-        buildHeader();
         switch (page) {
             case "explore" -> buildExplore();
             case "search" -> buildSearchPage();
