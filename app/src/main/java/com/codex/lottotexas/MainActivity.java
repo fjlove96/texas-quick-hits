@@ -2773,7 +2773,7 @@ public class MainActivity extends Activity {
         perksCard.setBackground(roundBorder(0xFF1E293B, 0xFF0EA5E9, 14));
         perksCard.addView(text("• 100% Ad-Free Experience", 13, GREEN, true), margin(0, 4));
         perksCard.addView(text("• Unlimited Saved Favorite Sets", 13, GREEN, true), margin(0, 4));
-        perksCard.addView(text("• Past Years Search History (1992–2025)", 13, GREEN, true), margin(0, 4));
+        perksCard.addView(text("• Past Years Search History (1992–2026)", 13, GREEN, true), margin(0, 4));
         perksCard.addView(text("• Instant Automatic Background Syncing", 13, GREEN, true), margin(0, 4));
         layout.addView(perksCard, margin(0, 10));
 
