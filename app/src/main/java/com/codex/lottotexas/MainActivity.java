@@ -638,11 +638,11 @@ public class MainActivity extends Activity {
 
             cell.addView(ball, new LinearLayout.LayoutParams(dp(36), dp(36)));
 
-            String subText = hit ? formatHitDatesMockup(hitDates) : "Not yet";
-            TextView subView = text(subText, 10, hit ? GREEN : Color.rgb(51, 65, 85), true);
+            String subText = hit ? formatHitDatesMockup(hitDates) : "Not Hit";
+            TextView subView = text(subText, 9, hit ? GREEN : Color.rgb(51, 65, 85), true);
             subView.setGravity(Gravity.CENTER);
-            subView.setMaxLines(2);
-            cell.addView(subView, margin(2, 2));
+            subView.setMaxLines(3);
+            cell.addView(subView, margin(1, 1));
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.setMargins(dp(6), 0, dp(6), 0);
@@ -2415,7 +2415,7 @@ public class MainActivity extends Activity {
                     "https://raw.githubusercontent.com/fjlove96/texas-quick-hits/main/lottotexas.csv?t=" + System.currentTimeMillis()
             };
             boolean success = false;
-            int newCount = 0;
+            int updatedCount = 0;
 
             for (String cloudUrl : urls) {
                 try {
@@ -2437,26 +2437,34 @@ public class MainActivity extends Activity {
                                     int day = Integer.parseInt(fields[2].trim());
                                     int year = Integer.parseInt(fields[3].trim());
                                     LocalDate date = LocalDate.of(year, month, day);
-                                    if (findDraw(date) == null) {
-                                        int[] nums = new int[6];
-                                        for (int i = 0; i < 6; i++) nums[i] = Integer.parseInt(fields[4 + i].trim());
-                                        synchronized (draws) {
+                                    int[] nums = new int[6];
+                                    for (int i = 0; i < 6; i++) nums[i] = Integer.parseInt(fields[4 + i].trim());
+
+                                    synchronized (draws) {
+                                        Draw existing = findDraw(date);
+                                        if (existing == null) {
                                             draws.add(new Draw(date, nums));
+                                            updatedCount++;
+                                        } else {
+                                            if (!java.util.Arrays.equals(existing.numbers(), nums)) {
+                                                draws.remove(existing);
+                                                draws.add(new Draw(date, nums));
+                                                updatedCount++;
+                                            }
                                         }
-                                        newCount++;
                                     }
                                 } catch (Exception ignored) { }
                             }
                             success = true;
-                            if (newCount > 0) {
+                            if (updatedCount > 0) {
                                 synchronized (draws) {
                                     draws.sort(Comparator.comparing(Draw::date));
                                     latestDate = draws.isEmpty() ? null : draws.get(draws.size() - 1).date();
                                 }
                                 saveHistory();
-                                final int added = newCount;
+                                final int count = updatedCount;
                                 runOnUiThread(() -> {
-                                    Toast.makeText(this, "☁️ Updated " + added + " new drawing(s) from Cloud!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(this, "☁️ Synced " + count + " draw(s) from Cloud!", Toast.LENGTH_SHORT).show();
                                     render();
                                 });
                             } else if (showUpToDateToast) {
@@ -2633,20 +2641,14 @@ public class MainActivity extends Activity {
 
     @SuppressWarnings("ReassignedVariable")
     private static String formatHitDatesMockup(List<LocalDate> dates) {
-        if (dates.isEmpty()) return "Not yet";
-        DateTimeFormatter monthFmt = DateTimeFormatter.ofPattern("MMM d", Locale.US);
+        if (dates.isEmpty()) return "Not Hit";
         if (dates.size() == 1) {
-            return "Hit " + dates.get(0).format(monthFmt);
+            return String.valueOf(dates.get(0).getDayOfMonth());
         }
-        StringBuilder sb = new StringBuilder("Hit ");
-        sb.append(dates.get(0).format(monthFmt));
+        StringBuilder sb = new StringBuilder();
+        sb.append(dates.get(0).getDayOfMonth());
         for (int i = 1; i < dates.size(); i++) {
-            LocalDate d = dates.get(i);
-            if (d.getMonth() == dates.get(0).getMonth()) {
-                sb.append(", ").append(d.getDayOfMonth());
-            } else {
-                sb.append("\n").append(d.format(monthFmt));
-            }
+            sb.append(", ").append(dates.get(i).getDayOfMonth());
         }
         return sb.toString();
     }
