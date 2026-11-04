@@ -1957,6 +1957,11 @@ public class MainActivity extends Activity {
                 13, MUTED, false), margin(8, 12));
         box.addView(text("Starting history: " + draws.size() + " drawings" +
                 (latestDate == null ? "" : ", through " + latestDate.format(DATE_FORMAT)) + ".", 11, MUTED, false));
+
+        box.addView(divider(), margin(10, 14));
+        box.addView(text("Data Source Attribution", 16, INK, true));
+        box.addView(text("Winning number results and historical drawing records are sourced from public data provided by the Texas Lottery Commission (www.texaslottery.com).",
+                12, MUTED, false), margin(8, 12));
         content.addView(box);
     }
 
