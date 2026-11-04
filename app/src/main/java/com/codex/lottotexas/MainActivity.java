@@ -729,9 +729,11 @@ public class MainActivity extends Activity {
         card.setPadding(dp(16), dp(14), dp(16), dp(14));
         card.setBackground(roundBorder(0xFF0F172A, 0xFF00F2FE, 18));
 
-        TextView icon = text("🎯", 20, Color.WHITE, true);
-        icon.setGravity(Gravity.CENTER);
+        ImageView icon = new ImageView(this);
+        icon.setImageResource(R.drawable.target_icon);
+        icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
         icon.setBackground(round(0xFF1E293B, 36));
+        icon.setClipToOutline(true);
         card.addView(icon, new LinearLayout.LayoutParams(dp(36), dp(36)));
 
         LinearLayout col = new LinearLayout(this);
@@ -1279,7 +1281,19 @@ public class MainActivity extends Activity {
         layout.setBackgroundColor(CARD_BG);
         scroll.addView(layout);
 
-        layout.addView(text("🎯  Smart Number Generator", 18, INK, true));
+        LinearLayout headerRow = new LinearLayout(this);
+        headerRow.setGravity(Gravity.CENTER_VERTICAL);
+        ImageView headerIcon = new ImageView(this);
+        headerIcon.setImageResource(R.drawable.target_icon);
+        headerIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        headerIcon.setBackground(round(0xFF1E293B, 28));
+        headerIcon.setClipToOutline(true);
+        headerRow.addView(headerIcon, new LinearLayout.LayoutParams(dp(28), dp(28)));
+
+        TextView headerTitle = text("  Smart Number Generator", 18, INK, true);
+        headerRow.addView(headerTitle);
+        layout.addView(headerRow, margin(0, 4));
+
         layout.addView(text("Calculated from historical patterns for " + periodName(), 12, MUTED, false), margin(2, 6));
 
         TextView introQuote = text("💡 Rather than picking 6 numbers uniformly at random like a generic quick pick machine, the generator filters, weights, and blends numbers based on 30+ years of real historical performance trends.", 11, INK, false);
