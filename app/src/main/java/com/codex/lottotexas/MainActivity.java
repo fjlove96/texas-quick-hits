@@ -183,10 +183,9 @@ public class MainActivity extends Activity {
                         mp.setOnCompletionListener(player -> {
                             player.release();
                             loadHistory();
-                            if (latestDate != null) {
-                                selectedMonth = latestDate.getMonthValue();
-                                selectedQuarter = (latestDate.getMonthValue() - 1) / 3 + 1;
-                            }
+                            selectedMonth = LocalDate.now().getMonthValue();
+                            selectedQuarter = (LocalDate.now().getMonthValue() - 1) / 3 + 1;
+                            selectedYear = LocalDate.now().getYear();
                             render();
                         });
                         mp.setOnErrorListener((player, what, extra) -> {
@@ -515,15 +514,9 @@ public class MainActivity extends Activity {
     }
 
     private void jumpToCurrentPeriod() {
-        if (latestDate != null) {
-            selectedMonth = latestDate.getMonthValue();
-            selectedQuarter = quarterOf(latestDate);
-            selectedYear = latestDate.getYear();
-        } else {
-            selectedMonth = LocalDate.now().getMonthValue();
-            selectedQuarter = quarterOf(LocalDate.now());
-            selectedYear = LocalDate.now().getYear();
-        }
+        selectedMonth = LocalDate.now().getMonthValue();
+        selectedQuarter = quarterOf(LocalDate.now());
+        selectedYear = LocalDate.now().getYear();
         render();
     }
 
