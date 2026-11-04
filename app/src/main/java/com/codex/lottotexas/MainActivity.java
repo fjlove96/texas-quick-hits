@@ -1960,7 +1960,7 @@ public class MainActivity extends Activity {
 
         box.addView(divider(), margin(10, 14));
         box.addView(text("Data Source Attribution", 16, INK, true));
-        box.addView(text("Winning number results and historical drawing records are sourced from public data provided by the Texas Lottery Commission (www.texaslottery.com).",
+        box.addView(text("Winning number results and historical drawing records are sourced from public data provided by the Texas Lottery Commission (www.texaslottery.com), retrieved on October 2026.",
                 12, MUTED, false), margin(8, 12));
         content.addView(box);
     }
