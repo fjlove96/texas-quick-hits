@@ -225,7 +225,7 @@ public class MainActivity extends Activity {
             LinearLayout titleRow = new LinearLayout(this);
             titleRow.setGravity(Gravity.CENTER);
             titleRow.addView(text("TEXAS ", 22, Color.WHITE, true));
-            titleRow.addView(text("QUICK HITS", 22, BLUE, true));
+            titleRow.addView(text("SMART PICKS", 22, BLUE, true));
             textStage.addView(titleRow, margin(0, 4));
 
             TextView subText = text("Based on Texas Lotto numbers", 12, MUTED, false);
@@ -307,14 +307,14 @@ public class MainActivity extends Activity {
         layout.setBackgroundColor(CARD_BG);
         scroll.addView(layout);
 
-        layout.addView(text("Welcome to Texas Quick Hits", 18, INK, true));
+        layout.addView(text("Welcome to Texas Smart Picks", 18, INK, true));
         layout.addView(text("Please review and agree to the Terms of Use before proceeding.", 12, MUTED, false), margin(2, 14));
 
         LinearLayout box = card(false);
         box.setBackground(roundBorder(CARD_BG, 0xFF334155, 14));
 
         box.addView(text("1. For Entertainment & Informational Use Only", 12, BLUE, true), margin(0, 2));
-        box.addView(text("Texas Quick Hits is created solely for statistical exploration, educational, and entertainment purposes.", 11, MUTED, false), margin(0, 8));
+        box.addView(text("Texas Smart Picks is created solely for statistical exploration, educational, and entertainment purposes.", 11, MUTED, false), margin(0, 8));
 
         box.addView(text("2. No Guarantee of Winnings or Odds Alteration", 12, BLUE, true), margin(4, 2));
         box.addView(text("Historical draw frequency describes past drawings only; it does not predict future outcomes or alter lottery odds.", 11, MUTED, false), margin(0, 8));
@@ -323,7 +323,7 @@ public class MainActivity extends Activity {
         box.addView(text("You are solely responsible for any lottery purchases you make. The developers assume no liability for any financial losses.", 11, MUTED, false), margin(0, 8));
 
         box.addView(text("4. Unofficial & Non-Affiliated", 12, BLUE, true), margin(4, 2));
-        box.addView(text("Texas Quick Hits is an independent app and is not affiliated with the Texas Lottery Commission or any official lottery entity.", 11, MUTED, false));
+        box.addView(text("Texas Smart Picks is an independent app and is not affiliated with the Texas Lottery Commission or any official lottery entity.", 11, MUTED, false));
 
         layout.addView(box, margin(0, 14));
 
@@ -355,7 +355,7 @@ public class MainActivity extends Activity {
         LinearLayout titleRow = new LinearLayout(this);
         titleRow.setGravity(Gravity.CENTER_VERTICAL);
         titleRow.addView(text("TEXAS ", 22, INK, true));
-        titleRow.addView(text("QUICK HITS", 22, BLUE, true));
+        titleRow.addView(text("SMART PICKS", 22, BLUE, true));
         brand.addView(titleRow);
 
         String sub = "Historical number analysis" + (latestDate == null ? "" : " · Updated " + latestDate.format(DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US)));
@@ -1948,16 +1948,16 @@ public class MainActivity extends Activity {
         box.addView(divider(), margin(10, 14));
         box.addView(text("Terms & Legal Disclaimer", 16, INK, true));
         box.addView(text("1. For Entertainment & Informational Use Only", 12, INK, true), margin(8, 2));
-        box.addView(text("Texas Quick Hits is created solely for statistical exploration, educational, and entertainment purposes.", 12, MUTED, false), margin(0, 8));
+        box.addView(text("Texas Smart Picks is created solely for statistical exploration, educational, and entertainment purposes.", 12, MUTED, false), margin(0, 8));
 
         box.addView(text("2. No Guarantee of Winnings or Results", 12, INK, true), margin(4, 2));
         box.addView(text("Historical draw frequency describes past drawings only; it does not predict future outcomes or alter the random odds of any lottery drawing. The app does not guarantee any winning ticket, prize, or financial return.", 12, MUTED, false), margin(0, 8));
 
         box.addView(text("3. Limitation of Liability & Waiver", 12, INK, true), margin(4, 2));
-        box.addView(text("You are solely responsible for any lottery purchases or financial decisions you make. The developers of Texas Quick Hits assume no liability for any financial losses or claims arising from the use of this app or reliance on its data.", 12, MUTED, false), margin(0, 8));
+        box.addView(text("You are solely responsible for any lottery purchases or financial decisions you make. The developers of Texas Smart Picks assume no liability for any financial losses or claims arising from the use of this app or reliance on its data.", 12, MUTED, false), margin(0, 8));
 
         box.addView(text("4. Unofficial & Non-Affiliated", 12, INK, true), margin(4, 2));
-        box.addView(text("Texas Quick Hits is an independent application and is not affiliated with, endorsed by, or sponsored by the Texas Lottery Commission or any official lottery organization.", 12, MUTED, false), margin(0, 10));
+        box.addView(text("Texas Smart Picks is an independent application and is not affiliated with, endorsed by, or sponsored by the Texas Lottery Commission or any official lottery organization.", 12, MUTED, false), margin(0, 10));
 
         TextView termsBtn = text("📜   View Terms of Use Dialog", 12, BLUE, true);
         termsBtn.setPadding(dp(12), dp(8), dp(12), dp(8));
@@ -2778,7 +2778,7 @@ public class MainActivity extends Activity {
         layout.setBackgroundColor(CARD_BG);
         scroll.addView(layout);
 
-        layout.addView(text("⭐ Upgrade to Quick Hits Pro", 18, INK, true));
+        layout.addView(text("⭐ Upgrade to Smart Picks Pro", 18, INK, true));
         layout.addView(text("Unlock the ultimate lottery analysis experience:", 12, MUTED, false), margin(2, 10));
 
         LinearLayout perksCard = card(false);
@@ -2795,7 +2795,7 @@ public class MainActivity extends Activity {
         buyBtn.setBackground(goldGradient());
         buyBtn.setOnClickListener(v -> {
             getSharedPreferences("pro_prefs", MODE_PRIVATE).edit().putBoolean("is_pro", true).apply();
-            Toast.makeText(this, "🎉 Thank you for upgrading to Quick Hits Pro!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "🎉 Thank you for upgrading to Smart Picks Pro!", Toast.LENGTH_LONG).show();
             render();
         });
         layout.addView(buyBtn, margin(0, 12));
