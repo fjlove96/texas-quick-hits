@@ -1301,6 +1301,11 @@ public class MainActivity extends Activity {
         introQuote.setBackground(roundBorder(0xFF1E293B, 0xFF334155, 12));
         layout.addView(introQuote, margin(0, 12));
 
+        // Strategy Selector Card
+        LinearLayout stratCard = card(false);
+        stratCard.setBackground(roundBorder(0xFF0F172A, 0xFF0EA5E9, 14));
+        stratCard.addView(text("Select Strategy", 13, GOLD, true), margin(0, 4));
+
         LinearLayout strategyTabs = new LinearLayout(this);
         strategyTabs.setPadding(dp(4), dp(4), dp(4), dp(4));
         strategyTabs.setBackground(round(0xFF1E293B, 16));
@@ -1308,14 +1313,8 @@ public class MainActivity extends Activity {
         String[][] strategies = {
                 {"Balanced", "Balanced"},
                 {"Overdue", "Overdue"},
-                {"Weighted", "Weighted"},
-                {"Lock", "🔒 Custom Lock"}
+                {"Weighted", "Weighted"}
         };
-
-        TextView lockBtn = text("🔒   Lock Custom Favorite Numbers (" + lockedNumbers.size() + "/5)  ➔", 11, BLUE, true);
-        lockBtn.setGravity(Gravity.CENTER);
-        lockBtn.setPadding(dp(10), dp(8), dp(10), dp(8));
-        lockBtn.setBackground(roundBorder(CARD_BG, 0xFF0EA5E9, 12));
 
         TextView strategyDesc = text("", 11, INK, false);
         strategyDesc.setPadding(dp(12), dp(8), dp(12), dp(8));
@@ -1343,7 +1342,6 @@ public class MainActivity extends Activity {
         };
 
         Runnable updateDesc = () -> {
-            lockBtn.setText("🔒   Lock Custom Favorite Numbers (" + lockedNumbers.size() + "/5)  ➔");
             String desc;
             String lockTag = lockedNumbers.isEmpty() ? "" : " (With " + lockedNumbers.size() + " Custom Numbers Locked 🔒)";
             switch (activeStrategy[0]) {
@@ -1355,7 +1353,148 @@ public class MainActivity extends Activity {
             updateSlots.run();
         };
 
-        lockBtn.setOnClickListener(v -> showLockNumbersDialog(lockedNumbers, updateDesc));
+        TextView[] tabViews = new TextView[strategies.length];
+        for (int k = 0; k < strategies.length; k++) {
+            final int stratIndex = k;
+            String id = strategies[k][0];
+            String name = strategies[k][1];
+            boolean isSel = Objects.equals(activeStrategy[0], id);
+
+            TextView tab = text(name, 11, isSel ? INK : MUTED, true);
+            tabViews[k] = tab;
+            tab.setGravity(Gravity.CENTER);
+            tab.setPadding(dp(4), dp(8), dp(4), dp(8));
+            tab.setBackground(round(isSel ? CARD_BG : Color.TRANSPARENT, 12));
+
+            tab.setOnClickListener(v -> {
+                activeStrategy[0] = id;
+                for (int j = 0; j < tabViews.length; j++) {
+                    boolean sel = (j == stratIndex);
+                    tabViews[j].setBackground(round(sel ? CARD_BG : Color.TRANSPARENT, 12));
+                    tabViews[j].setTextColor(sel ? INK : MUTED);
+                }
+                updateDesc.run();
+            });
+
+            strategyTabs.addView(tab, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        }
+
+        stratCard.addView(strategyTabs, margin(0, 8));
+        stratCard.addView(strategyDesc, margin(0, 4));
+        layout.addView(stratCard, margin(0, 10));
+
+        // Embedded Lock Card (1-54 Grid)
+        LinearLayout lockCard = card(false);
+        lockCard.setBackground(roundBorder(0xFF0F172A, 0xFF334155, 14));
+
+        LinearLayout lockHeader = new LinearLayout(this);
+        lockHeader.setGravity(Gravity.CENTER_VERTICAL);
+        lockHeader.addView(text("Lock Favorite Numbers (1–54)", 13, GOLD, true), new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        TextView lockCount = text("Locked: 0/5", 11, BLUE, true);
+        lockHeader.addView(lockCount);
+        lockCard.addView(lockHeader, margin(0, 6));
+
+        // Color Legend matching Home screen tiers
+        LinearLayout legend = new LinearLayout(this);
+        legend.setOrientation(LinearLayout.HORIZONTAL);
+        legend.setGravity(Gravity.CENTER);
+        legend.setPadding(dp(2), dp(2), dp(2), dp(2));
+
+        LinearLayout topItem = new LinearLayout(this);
+        topItem.setGravity(Gravity.CENTER_VERTICAL);
+        TextView topDot = text("  ", 10, Color.WHITE, true);
+        topDot.setBackground(round(0xFFF59E0B, 16));
+        topItem.addView(topDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
+        topItem.addView(text(" Top Tier", 10, INK, false), margin(0, 0));
+
+        LinearLayout nextItem = new LinearLayout(this);
+        nextItem.setGravity(Gravity.CENTER_VERTICAL);
+        TextView nextDot = text("  ", 10, Color.WHITE, true);
+        nextDot.setBackground(round(0xFF0EA5E9, 16));
+        nextItem.addView(nextDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
+        nextItem.addView(text(" Next Tier", 10, INK, false), margin(0, 0));
+
+        LinearLayout otherItem = new LinearLayout(this);
+        otherItem.setGravity(Gravity.CENTER_VERTICAL);
+        TextView otherDot = text("  ", 10, Color.WHITE, true);
+        otherDot.setBackground(round(0xFF1E293B, 16));
+        otherItem.addView(otherDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
+        otherItem.addView(text(" Other", 10, INK, false), margin(0, 0));
+
+        LinearLayout.LayoutParams legLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        legLp.setMargins(dp(2), 0, dp(2), 0);
+        legend.addView(topItem, legLp);
+        legend.addView(nextItem, legLp);
+        legend.addView(otherItem, legLp);
+
+        lockCard.addView(legend, margin(0, 4));
+
+        LinearLayout lockGrid = new LinearLayout(this);
+        lockGrid.setOrientation(LinearLayout.VERTICAL);
+
+        List<PeriodBucket> bucketsForLock = historicalBuckets();
+        ArrayList<Stat> statsForLock = calculateStats(bucketsForLock);
+        java.util.HashSet<Integer> topTierNums = new java.util.HashSet<>();
+        java.util.HashSet<Integer> moderateNums = new java.util.HashSet<>();
+        for (Stat st : statsForLock) {
+            if (st.percent >= 70) topTierNums.add(st.number);
+            else if (st.percent >= 50) moderateNums.add(st.number);
+        }
+
+        final Runnable[] updateLockGridHolder = new Runnable[1];
+        Runnable updateLockGrid = new Runnable() {
+            @Override
+            public void run() {
+                lockCount.setText("Locked: " + lockedNumbers.size() + "/5");
+                lockGrid.removeAllViews();
+
+                LinearLayout row = null;
+                int colCount = 0;
+                for (int num = 1; num <= 54; num++) {
+                    final int n = num;
+                    if (row == null || colCount == 9) {
+                        row = new LinearLayout(MainActivity.this);
+                        row.setGravity(Gravity.CENTER);
+                        lockGrid.addView(row, margin(0, 2));
+                        colCount = 0;
+                    }
+
+                    boolean isLocked = lockedNumbers.contains(n);
+                    boolean isTop = topTierNums.contains(n);
+                    boolean isMod = moderateNums.contains(n);
+
+                    int bgColor = isLocked ? 0xFF0EA5E9 : (isTop ? 0xFFF59E0B : (isMod ? 0xFF0EA5E9 : 0xFF1E293B));
+                    int strokeColor = isLocked ? Color.WHITE : (isTop ? 0xFFFEF3C7 : (isMod ? 0xFF38BDF8 : 0xFF334155));
+                    int textColor = isLocked ? Color.BLACK : ((isTop || isMod) ? Color.BLACK : Color.WHITE);
+
+                    TextView ball = text(String.format(Locale.US, "%02d", n), 11, textColor, true);
+                    ball.setGravity(Gravity.CENTER);
+                    ball.setPadding(dp(2), dp(6), dp(2), dp(6));
+                    ball.setBackground(roundBorder(bgColor, strokeColor, 16));
+
+                    ball.setOnClickListener(v -> {
+                        if (lockedNumbers.contains(n)) {
+                            lockedNumbers.remove(n);
+                        } else if (lockedNumbers.size() < 5) {
+                            lockedNumbers.add(n);
+                        } else {
+                            Toast.makeText(MainActivity.this, "You can lock up to 5 custom numbers.", Toast.LENGTH_SHORT).show();
+                        }
+                        run();
+                        updateSlots.run();
+                    });
+
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(34), 1f);
+                    lp.setMargins(dp(2), dp(2), dp(2), dp(2));
+                    row.addView(ball, lp);
+                    colCount++;
+                }
+            }
+        };
+        updateLockGridHolder[0] = updateLockGrid;
+        updateLockGrid.run();
+        lockCard.addView(lockGrid, margin(0, 6));
+        layout.addView(lockCard, margin(0, 10));
 
         LinearLayout breakdownBox = card(false);
         breakdownBox.setBackground(round(0xFF1E293B, 16));
@@ -1366,13 +1505,36 @@ public class MainActivity extends Activity {
         slotsRow.setGravity(Gravity.CENTER);
 
         for (int i = 0; i < 6; i++) {
+            final int slotIdx = i;
             TextView slot = text("?", 16, MUTED, true);
             slotViews[i] = slot;
             slot.setGravity(Gravity.CENTER);
             slot.setPadding(0, dp(12), 0, dp(12));
             slot.setBackground(round(0xFF1E293B, 16));
 
-            slot.setOnClickListener(v -> showLockNumbersDialog(lockedNumbers, updateDesc));
+            slot.setOnClickListener(v -> {
+                List<Integer> list = new ArrayList<>(lockedNumbers);
+                if (slotIdx < list.size()) {
+                    int numToUnlock = list.get(slotIdx);
+                    lockedNumbers.remove(numToUnlock);
+                    Toast.makeText(MainActivity.this, "Unlocked number " + numToUnlock, Toast.LENGTH_SHORT).show();
+                    updateSlots.run();
+                    if (updateLockGridHolder[0] != null) updateLockGridHolder[0].run();
+                } else if (currentPicks[0].length == 6) {
+                    int num = currentPicks[0][slotIdx];
+                    if (lockedNumbers.contains(num)) {
+                        lockedNumbers.remove(num);
+                        Toast.makeText(MainActivity.this, "Unlocked number " + num, Toast.LENGTH_SHORT).show();
+                    } else if (lockedNumbers.size() < 5) {
+                        lockedNumbers.add(num);
+                        Toast.makeText(MainActivity.this, "Locked number " + num, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "You can lock up to 5 custom numbers.", Toast.LENGTH_SHORT).show();
+                    }
+                    updateSlots.run();
+                    if (updateLockGridHolder[0] != null) updateLockGridHolder[0].run();
+                }
+            });
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(50), 1f);
             lp.setMargins(dp(3), 0, dp(3), 0);
@@ -1477,9 +1639,24 @@ public class MainActivity extends Activity {
                     final int delay = r * 30 + i * 50;
                     handler.postDelayed(() -> {
                         if (isLast) {
+                            List<PeriodBucket> bucketsForStats = historicalBuckets();
+                            ArrayList<Stat> statsForStats = calculateStats(bucketsForStats);
+                            java.util.HashSet<Integer> topNums = new java.util.HashSet<>();
+                            java.util.HashSet<Integer> modNums = new java.util.HashSet<>();
+                            for (Stat st : statsForStats) {
+                                if (st.percent >= 70) topNums.add(st.number);
+                                else if (st.percent >= 50) modNums.add(st.number);
+                            }
+                            boolean isTop = topNums.contains(finalNum);
+                            boolean isMod = modNums.contains(finalNum);
+
+                            int bgColor = isHit ? 0xFFA7F3D0 : (isTop ? 0xFFF59E0B : (isMod ? 0xFF0EA5E9 : 0xFF1E293B));
+                            int strokeColor = isHit ? 0xFF10B981 : (isTop ? 0xFFFEF3C7 : (isMod ? 0xFF38BDF8 : 0xFF334155));
+                            int textColor = isHit ? 0xFF064E3B : ((isTop || isMod) ? Color.BLACK : Color.WHITE);
+
                             slotViews[slotIdx].setText(String.valueOf(finalNum));
-                            slotViews[slotIdx].setBackground(isHit ? roundBorder(0xFFA7F3D0, 0xFF10B981, 16) : round(0xFF1E293B, 16));
-                            slotViews[slotIdx].setTextColor(isHit ? GREEN : INK);
+                            slotViews[slotIdx].setBackground(roundBorder(bgColor, strokeColor, 16));
+                            slotViews[slotIdx].setTextColor(textColor);
                             slotViews[slotIdx].animate().scaleX(1.15f).scaleY(1.15f).setDuration(80)
                                     .withEndAction(() -> slotViews[slotIdx].animate().scaleX(1.0f).scaleY(1.0f).setDuration(80));
                             if (slotIdx == 5) {
@@ -1496,35 +1673,6 @@ public class MainActivity extends Activity {
             }
         };
 
-        TextView[] tabViews = new TextView[strategies.length];
-        for (int k = 0; k < strategies.length; k++) {
-            final int stratIndex = k;
-            String id = strategies[k][0];
-            String name = strategies[k][1];
-            boolean isSel = Objects.equals(activeStrategy[0], id);
-
-            TextView tab = text(name, 11, isSel ? INK : MUTED, true);
-            tabViews[k] = tab;
-            tab.setGravity(Gravity.CENTER);
-            tab.setPadding(dp(4), dp(8), dp(4), dp(8));
-            tab.setBackground(round(isSel ? CARD_BG : Color.TRANSPARENT, 12));
-
-            tab.setOnClickListener(v -> {
-                activeStrategy[0] = id;
-                for (int j = 0; j < tabViews.length; j++) {
-                    boolean sel = (j == stratIndex);
-                    tabViews[j].setBackground(round(sel ? CARD_BG : Color.TRANSPARENT, 12));
-                    tabViews[j].setTextColor(sel ? INK : MUTED);
-                }
-                updateDesc.run();
-                if ("Lock".equals(id)) {
-                    showLockNumbersDialog(lockedNumbers, updateDesc);
-                }
-            });
-
-            strategyTabs.addView(tab, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        }
-
         updateDesc.run();
 
         TextView guideBtn = text("📊   View Strategy Comparison Guide  ➔", 11, BLUE, true);
@@ -1532,11 +1680,8 @@ public class MainActivity extends Activity {
         guideBtn.setBackground(roundBorder(CARD_BG, 0xFF0EA5E9, 12));
         guideBtn.setOnClickListener(v -> showStrategyGuideDialog());
 
-        layout.addView(strategyTabs, margin(0, 10));
-        layout.addView(strategyDesc, margin(0, 10));
-        layout.addView(lockBtn, margin(0, 10));
-        layout.addView(guideBtn, margin(0, 12));
-        layout.addView(slotsRow, margin(0, 14));
+        layout.addView(guideBtn, margin(0, 8));
+        layout.addView(slotsRow, margin(0, 10));
 
         GradientDrawable goldGrad = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
