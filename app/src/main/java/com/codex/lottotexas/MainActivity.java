@@ -564,33 +564,33 @@ public class MainActivity extends Activity {
 
             String periodUnit = "Month".equals(mode) ? "YEARS" : "PERIODS";
 
-            // Tier 0: TOP TIER
+            // Tier 0: TOP TIER (Gold)
             if (!tierGroups.isEmpty()) {
                 ArrayList<Stat> topGroup = tierGroups.get(0);
                 Stat first = topGroup.get(0);
                 String detail = "TOP TIER  ·  " + first.hits + " / " + first.eligible + " " + periodUnit + "  ·  " + first.percent + "%";
                 box.addView(text(detail, 13, MUTED, true), margin(0, 6));
-                box.addView(buildTierGrid(topGroup, 8), margin(0, 4));
+                box.addView(buildTierGrid(topGroup, 8, 0xFFF59E0B, 0xFFFEF3C7, Color.BLACK), margin(0, 4));
             }
 
-            // Tier 1: NEXT TIER (if exists)
+            // Tier 1: NEXT TIER (Cyan)
             if (tierGroups.size() > 1) {
                 ArrayList<Stat> nextGroup = tierGroups.get(1);
                 Stat first = nextGroup.get(0);
                 box.addView(divider(), margin(6, 6));
                 String detail = "NEXT TIER  ·  " + first.hits + " / " + first.eligible + " " + periodUnit + "  ·  " + first.percent + "%";
                 box.addView(text(detail, 13, MUTED, true), margin(0, 6));
-                box.addView(buildTierGrid(nextGroup, 8), margin(0, 4));
+                box.addView(buildTierGrid(nextGroup, 8, 0xFF0EA5E9, 0xFF38BDF8, Color.BLACK), margin(0, 4));
             }
 
-            // Tier 2+: ALSO FREQUENT (if exists)
+            // Tier 2+: ALSO FREQUENT (Dark Slate)
             if (tierGroups.size() > 2) {
                 ArrayList<Stat> frequentGroup = tierGroups.get(2);
                 Stat first = frequentGroup.get(0);
                 box.addView(divider(), margin(6, 6));
                 String detail = "ALSO FREQUENT  ·  " + first.hits + " / " + first.eligible + " " + periodUnit + "  ·  " + first.percent + "%";
                 box.addView(text(detail, 13, MUTED, true), margin(0, 6));
-                box.addView(buildTierGrid(frequentGroup, 8), margin(0, 4));
+                box.addView(buildTierGrid(frequentGroup, 8, 0xFF1E293B, 0xFF334155, Color.WHITE), margin(0, 4));
             }
 
             box.addView(text("Hit rates describe past draws; they don't predict the next one.", 10, MUTED, false), margin(10, 0));
@@ -598,7 +598,7 @@ public class MainActivity extends Activity {
         content.addView(box, margin(0, 14));
     }
 
-    private LinearLayout buildTierGrid(ArrayList<Stat> group, int limit) {
+    private LinearLayout buildTierGrid(ArrayList<Stat> group, int limit, int defaultBgColor, int defaultStrokeColor, int defaultTextColor) {
         LinearLayout grid = new LinearLayout(this);
         grid.setOrientation(LinearLayout.VERTICAL);
         LinearLayout currentRow = null;
@@ -621,11 +621,13 @@ public class MainActivity extends Activity {
             cell.setOrientation(LinearLayout.VERTICAL);
             cell.setPadding(dp(4), dp(4), dp(4), dp(4));
 
-            TextView ball = text("" + stat.number, 13, hit ? 0xFF064E3B : Color.rgb(15, 23, 42), true);
+            int bgColor = hit ? 0xFFA7F3D0 : defaultBgColor;
+            int strokeColor = hit ? 0xFF10B981 : defaultStrokeColor;
+            int textColor = hit ? 0xFF064E3B : defaultTextColor;
+
+            TextView ball = text("" + stat.number, 13, textColor, true);
             ball.setGravity(Gravity.CENTER);
-            ball.setBackground(hit
-                    ? roundBorder(0xFFA7F3D0, 0xFF10B981, 36)
-                    : roundBorder(0xFFCBD5E1, 0xFF475569, 36));
+            ball.setBackground(roundBorder(bgColor, strokeColor, 36));
 
             cell.addView(ball, new LinearLayout.LayoutParams(dp(36), dp(36)));
 
@@ -1049,7 +1051,7 @@ public class MainActivity extends Activity {
 
         for (Stat stat : stats) {
             boolean hit = hitThisMonth.contains(stat.number);
-            if (!hit && stat.percent >= 70) {
+            if (!hit && stat.percent >= 50) {
                 dueTopTier.add(stat);
             } else if (hit) {
                 hotMonthHits.add(stat);
@@ -1400,45 +1402,47 @@ public class MainActivity extends Activity {
         legend.setGravity(Gravity.CENTER);
         legend.setPadding(dp(2), dp(2), dp(2), dp(2));
 
-        LinearLayout topItem = new LinearLayout(this);
-        topItem.setGravity(Gravity.CENTER_VERTICAL);
-        TextView topDot = text("  ", 10, Color.WHITE, true);
-        topDot.setBackground(round(0xFFF59E0B, 16));
-        topItem.addView(topDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
-        topItem.addView(text(" Top Tier", 10, INK, false), margin(0, 0));
-
-        LinearLayout nextItem = new LinearLayout(this);
-        nextItem.setGravity(Gravity.CENTER_VERTICAL);
-        TextView nextDot = text("  ", 10, Color.WHITE, true);
-        nextDot.setBackground(round(0xFF0EA5E9, 16));
-        nextItem.addView(nextDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
-        nextItem.addView(text(" Next Tier", 10, INK, false), margin(0, 0));
-
-        LinearLayout otherItem = new LinearLayout(this);
-        otherItem.setGravity(Gravity.CENTER_VERTICAL);
-        TextView otherDot = text("  ", 10, Color.WHITE, true);
-        otherDot.setBackground(round(0xFF1E293B, 16));
-        otherItem.addView(otherDot, new LinearLayout.LayoutParams(dp(10), dp(10)));
-        otherItem.addView(text(" Other", 10, INK, false), margin(0, 0));
-
-        LinearLayout.LayoutParams legLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-        legLp.setMargins(dp(2), 0, dp(2), 0);
-        legend.addView(topItem, legLp);
-        legend.addView(nextItem, legLp);
-        legend.addView(otherItem, legLp);
-
+        String[] legLabels = {"Hit", "Top Tier", "Next Tier", "Other"};
+        int[] legColors = {0xFFA7F3D0, 0xFFF59E0B, 0xFF0EA5E9, 0xFF1E293B};
+        for (int i = 0; i < legLabels.length; i++) {
+            LinearLayout item = new LinearLayout(this);
+            item.setGravity(Gravity.CENTER_VERTICAL);
+            TextView dot = text("  ", 10, Color.WHITE, true);
+            dot.setBackground(round(legColors[i], 16));
+            item.addView(dot, new LinearLayout.LayoutParams(dp(8), dp(8)));
+            item.addView(text(" " + legLabels[i], 9, INK, false), margin(0, 0));
+            LinearLayout.LayoutParams legLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+            legLp.setMargins(dp(1), 0, dp(1), 0);
+            legend.addView(item, legLp);
+        }
         lockCard.addView(legend, margin(0, 4));
 
         LinearLayout lockGrid = new LinearLayout(this);
         lockGrid.setOrientation(LinearLayout.VERTICAL);
 
+        TreeSet<Integer> hitThisMonth = new TreeSet<>();
+        PeriodBucket latest = latestSelectedBucket();
+        if (latest != null) {
+            for (Draw draw : latest.draws()) {
+                for (int num : draw.numbers()) hitThisMonth.add(num);
+            }
+        }
+
         List<PeriodBucket> bucketsForLock = historicalBuckets();
         ArrayList<Stat> statsForLock = calculateStats(bucketsForLock);
+        LinkedHashMap<Integer, ArrayList<Stat>> tiersForLock = new LinkedHashMap<>();
+        for (Stat stat : statsForLock) {
+            tiersForLock.computeIfAbsent(stat.percent, key -> new ArrayList<>()).add(stat);
+        }
+        List<ArrayList<Stat>> tierGroupsForLock = new ArrayList<>(tiersForLock.values());
+
         java.util.HashSet<Integer> topTierNums = new java.util.HashSet<>();
-        java.util.HashSet<Integer> moderateNums = new java.util.HashSet<>();
-        for (Stat st : statsForLock) {
-            if (st.percent >= 70) topTierNums.add(st.number);
-            else if (st.percent >= 50) moderateNums.add(st.number);
+        java.util.HashSet<Integer> nextTierNums = new java.util.HashSet<>();
+        if (!tierGroupsForLock.isEmpty()) {
+            for (Stat st : tierGroupsForLock.get(0)) topTierNums.add(st.number);
+        }
+        if (tierGroupsForLock.size() > 1) {
+            for (Stat st : tierGroupsForLock.get(1)) nextTierNums.add(st.number);
         }
 
         final Runnable[] updateLockGridHolder = new Runnable[1];
@@ -1452,25 +1456,48 @@ public class MainActivity extends Activity {
                 int colCount = 0;
                 for (int num = 1; num <= 54; num++) {
                     final int n = num;
-                    if (row == null || colCount == 9) {
+                    if (row == null || colCount == 7) {
                         row = new LinearLayout(MainActivity.this);
                         row.setGravity(Gravity.CENTER);
-                        lockGrid.addView(row, margin(0, 2));
+                        lockGrid.addView(row, margin(0, 3));
                         colCount = 0;
                     }
 
                     boolean isLocked = lockedNumbers.contains(n);
+                    boolean isHit = hitThisMonth.contains(n);
                     boolean isTop = topTierNums.contains(n);
-                    boolean isMod = moderateNums.contains(n);
+                    boolean isNext = nextTierNums.contains(n);
 
-                    int bgColor = isLocked ? 0xFF0EA5E9 : (isTop ? 0xFFF59E0B : (isMod ? 0xFF0EA5E9 : 0xFF1E293B));
-                    int strokeColor = isLocked ? Color.WHITE : (isTop ? 0xFFFEF3C7 : (isMod ? 0xFF38BDF8 : 0xFF334155));
-                    int textColor = isLocked ? Color.BLACK : ((isTop || isMod) ? Color.BLACK : Color.WHITE);
+                    int bgColor;
+                    int strokeColor;
+                    int textColor;
 
-                    TextView ball = text(String.format(Locale.US, "%02d", n), 11, textColor, true);
+                    if (isLocked) {
+                        bgColor = 0xFF0EA5E9;
+                        strokeColor = Color.WHITE;
+                        textColor = Color.BLACK;
+                    } else if (isHit) {
+                        bgColor = 0xFFA7F3D0; // Mint Green Hit
+                        strokeColor = isTop ? 0xFFF59E0B : 0xFF10B981; // Gold border if Top Tier, else emerald
+                        textColor = 0xFF064E3B;
+                    } else if (isTop) {
+                        bgColor = 0xFFF59E0B; // Gold Top Tier matching Home screen
+                        strokeColor = 0xFFFEF3C7;
+                        textColor = Color.BLACK;
+                    } else if (isNext) {
+                        bgColor = 0xFF0EA5E9; // Cyan Next Tier matching Home screen
+                        strokeColor = 0xFF38BDF8;
+                        textColor = Color.BLACK;
+                    } else {
+                        bgColor = 0xFF1E293B; // Dark Slate Frequent
+                        strokeColor = 0xFF334155;
+                        textColor = Color.WHITE;
+                    }
+
+                    TextView ball = text(String.format(Locale.US, "%02d", n), 12, textColor, true);
                     ball.setGravity(Gravity.CENTER);
-                    ball.setPadding(dp(2), dp(6), dp(2), dp(6));
-                    ball.setBackground(roundBorder(bgColor, strokeColor, 16));
+                    ball.setPadding(dp(4), dp(8), dp(4), dp(8));
+                    ball.setBackground(roundBorder(bgColor, strokeColor, 18));
 
                     ball.setOnClickListener(v -> {
                         if (lockedNumbers.contains(n)) {
@@ -1484,8 +1511,8 @@ public class MainActivity extends Activity {
                         updateSlots.run();
                     });
 
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(34), 1f);
-                    lp.setMargins(dp(2), dp(2), dp(2), dp(2));
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(40), 1f);
+                    lp.setMargins(dp(3), dp(3), dp(3), dp(3));
                     row.addView(ball, lp);
                     colCount++;
                 }
@@ -1550,13 +1577,6 @@ public class MainActivity extends Activity {
 
             List<PeriodBucket> buckets = historicalBuckets();
             ArrayList<Stat> stats = calculateStats(buckets);
-            TreeSet<Integer> hitThisMonth = new TreeSet<>();
-            PeriodBucket latest = latestSelectedBucket();
-            if (latest != null) {
-                for (Draw draw : latest.draws()) {
-                    for (int num : draw.numbers()) hitThisMonth.add(num);
-                }
-            }
 
             int sumPercent = 0;
             for (int num : picks) {
@@ -1605,14 +1625,6 @@ public class MainActivity extends Activity {
             int[] finalPicks = generateSmartPicksWithLocks(activeStrategy[0], lockedNumbers);
             currentPicks[0] = finalPicks;
 
-            TreeSet<Integer> hitThisMonth = new TreeSet<>();
-            PeriodBucket latest = latestSelectedBucket();
-            if (latest != null) {
-                for (Draw draw : latest.draws()) {
-                    for (int num : draw.numbers()) hitThisMonth.add(num);
-                }
-            }
-
             android.os.Handler handler = new android.os.Handler(android.os.Looper.getMainLooper());
             java.util.Random rand = new java.util.Random();
 
@@ -1641,18 +1653,27 @@ public class MainActivity extends Activity {
                         if (isLast) {
                             List<PeriodBucket> bucketsForStats = historicalBuckets();
                             ArrayList<Stat> statsForStats = calculateStats(bucketsForStats);
-                            java.util.HashSet<Integer> topNums = new java.util.HashSet<>();
-                            java.util.HashSet<Integer> modNums = new java.util.HashSet<>();
+                            LinkedHashMap<Integer, ArrayList<Stat>> tiersForStats = new LinkedHashMap<>();
                             for (Stat st : statsForStats) {
-                                if (st.percent >= 70) topNums.add(st.number);
-                                else if (st.percent >= 50) modNums.add(st.number);
+                                tiersForStats.computeIfAbsent(st.percent, key -> new ArrayList<>()).add(st);
                             }
-                            boolean isTop = topNums.contains(finalNum);
-                            boolean isMod = modNums.contains(finalNum);
+                            List<ArrayList<Stat>> tierGroupsForStats = new ArrayList<>(tiersForStats.values());
 
-                            int bgColor = isHit ? 0xFFA7F3D0 : (isTop ? 0xFFF59E0B : (isMod ? 0xFF0EA5E9 : 0xFF1E293B));
-                            int strokeColor = isHit ? 0xFF10B981 : (isTop ? 0xFFFEF3C7 : (isMod ? 0xFF38BDF8 : 0xFF334155));
-                            int textColor = isHit ? 0xFF064E3B : ((isTop || isMod) ? Color.BLACK : Color.WHITE);
+                            java.util.HashSet<Integer> topNums = new java.util.HashSet<>();
+                            java.util.HashSet<Integer> nextNums = new java.util.HashSet<>();
+                            if (!tierGroupsForStats.isEmpty()) {
+                                for (Stat st : tierGroupsForStats.get(0)) topNums.add(st.number);
+                            }
+                            if (tierGroupsForStats.size() > 1) {
+                                for (Stat st : tierGroupsForStats.get(1)) nextNums.add(st.number);
+                            }
+
+                            boolean isTop = topNums.contains(finalNum);
+                            boolean isNext = nextNums.contains(finalNum);
+
+                            int bgColor = isLocked ? 0xFF0EA5E9 : (isHit ? 0xFFA7F3D0 : (isTop ? 0xFFF59E0B : (isNext ? 0xFF0EA5E9 : 0xFF1E293B)));
+                            int strokeColor = isLocked ? Color.WHITE : (isHit ? (isTop ? 0xFFF59E0B : 0xFF10B981) : (isTop ? 0xFFFEF3C7 : (isNext ? 0xFF38BDF8 : 0xFF334155)));
+                            int textColor = isLocked ? Color.BLACK : (isHit ? 0xFF064E3B : ((isTop || isNext) ? Color.BLACK : Color.WHITE));
 
                             slotViews[slotIdx].setText(String.valueOf(finalNum));
                             slotViews[slotIdx].setBackground(roundBorder(bgColor, strokeColor, 16));
